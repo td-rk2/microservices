@@ -1,5 +1,6 @@
 package com.Tz.Controllers;
 
+import com.Tz.Exceptions.UserException;
 import com.Tz.Models.User;
 import com.Tz.Repositories.UserRepository;
 import jakarta.validation.Valid;
@@ -54,7 +55,7 @@ public class UserController {
         Optional<User> opt = userRepository.findById(id);
         if(opt.isEmpty())
         {
-            throw new Exception("User not found with Id : "+id);
+            throw new UserException("User not found with Id : "+id);
         }
         //userRepository.deleteById(id);
         userRepository.deleteById(opt.get().getId());
