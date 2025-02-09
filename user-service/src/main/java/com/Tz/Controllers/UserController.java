@@ -3,91 +3,56 @@ package com.Tz.Controllers;
 import com.Tz.Exceptions.UserException;
 import com.Tz.Models.User;
 import com.Tz.Repositories.UserRepository;
+import com.Tz.UserService.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 public class UserController {
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
 
-
-    @GetMapping("/getuser")
-    public User getUser(User user){
-        user.setFullName("Zayn man");
-        user.setEmail("Zayn.man@gmail.com");
-        user.setPhone(43664);
-        user.setRole("Actor");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
-        return user;
+    @PostMapping("/createuser")
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user){
+        User createduser =  userService.createUser(user);
+        return new ResponseEntity<>(createduser, HttpStatus.CREATED);
     }
 
     @GetMapping("/getallusers")
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers(){
+        List<User> user = userService.getAllUsers();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/getuserbyid/{id}")
-    public User getAllUsers(@PathVariable Long id) throws Exception{
-        Optional<User> opt = userRepository.findById(id);
-        if(opt.isPresent())
-        {
-            return opt.get();
-        }
-        throw new Exception("user not found");
-    }
-
-    @PostMapping("/createuser")
-    public User createUser(@RequestBody @Valid User user){
-        return userRepository.save(user);
-    }
-
-    @DeleteMapping("/deleteuser/{id}")
-    public String deleteUser(@PathVariable Long id) throws Exception{
-        Optional<User> opt = userRepository.findById(id);
-        if(opt.isEmpty())
-        {
-            throw new UserException("User not found with Id : "+id);
-        }
-        //userRepository.deleteById(id);
-        userRepository.deleteById(opt.get().getId());
-        return "User deleted";
+    public ResponseEntity<User> getUsersById(@PathVariable Long id) throws Exception{
+        User user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping("/updateuser/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) throws Exception {
-        Optional<User> opt = userRepository.findById(id);
-        if(opt.isPresent())
-        {
-            User user = opt.get();
-            user.setFullName(userDetails.getFullName());;
-            user.setEmail(userDetails.getEmail());
-            user.setRole("From hard code");
-            return userRepository.save(user);
-        }
-        throw new Exception("User not found");
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) throws Exception {
+        User updateuser = userService.updateUser(id, user);
+        return new ResponseEntity<>(updateuser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateuserrequestless/{id}")
-    public User updateUserrequestless(@PathVariable Long id) throws Exception {
-        Optional<User> opt = userRepository.findById(id);
-        if(opt.isPresent())
-        {
-            User user = opt.get();
-            user.setFullName("less oil");;
-            user.setEmail("less mail");
-            user.setRole("From hard code1");
-            return userRepository.save(user);
-        }
-        throw new Exception("User not found");
+    @DeleteMapping("/deleteuser/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws Exception{
+    userService.deleteUser(id);
+    return new ResponseEntity<>("User deleted successfully", HttpStatus.ACCEPTED);
     }
 
 }

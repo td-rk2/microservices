@@ -28,11 +28,8 @@ public class User {
     private String email;
     private int phone;
     private String role;
-    @CreationTimestamp
     private LocalDateTime createdAt;
-    @UpdateTimestamp
     private LocalDateTime updatedAt;
-    @NotBlank(message = "Password is mandatory")
     private String password;
 
     public Long getId() {
