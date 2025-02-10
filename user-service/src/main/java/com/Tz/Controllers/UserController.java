@@ -5,6 +5,7 @@ import com.Tz.Models.User;
 import com.Tz.Repositories.UserRepository;
 import com.Tz.UserService.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +17,10 @@ import java.util.Optional;
 
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping("/createuser")
     public ResponseEntity<User> createUser(@RequestBody @Valid User user){
