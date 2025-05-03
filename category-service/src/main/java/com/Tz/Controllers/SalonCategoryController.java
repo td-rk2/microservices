@@ -16,6 +16,11 @@ public class SalonCategoryController {
 
     private final CategoryService categoryService;
 
+    //localhost:5003/api/categories/salon-owner
+    //{
+    //    "name" : "Hair color",
+    //    "image" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fpeace%2F&psig=AOvVaw1Snk69aq8KZ7QlzbwQqJa5&ust=1739460295216000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOilneC4vosDFQAAAAAdAAAAABAE"
+    //}
     @PostMapping()
     public ResponseEntity<Category> saveCategory(@RequestBody Category category) {
 
@@ -25,6 +30,7 @@ public class SalonCategoryController {
         return ResponseEntity.ok(savedCategory);
     }
 
+    //localhost:5003/api/categories/salon-owner/1
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId) throws Exception {
         SalonDTO salonDTO = new SalonDTO();

@@ -15,12 +15,14 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    //localhost:5003/api/categories
     @GetMapping("/salon/{salonId}")
     public ResponseEntity<Set<Category>> getCategoriesBySalon(@PathVariable Long salonId) {
         Set<Category> category1 = categoryService.getCategoriesBySalon(salonId);
         return ResponseEntity.ok(category1);
     }
 
+    //localhost:5003/api/categories/1
     @GetMapping("/{categoryId}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Long categoryId){
         Category category1 = categoryService.getCategoryById(categoryId);

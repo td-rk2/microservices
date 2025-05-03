@@ -40,21 +40,3 @@ http://localhost:5002/api/salons/owner
 "images" : ["https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fpeace%2F&psig=AOvVaw1Snk69aq8KZ7QlzbwQqJa5&ust=1739460295216000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOilneC4vosDFQAAAAAdAAAAABAE"]
 }
 -----------------------------------------------------------------------------------------
-
-
-
-
----------------------------------------------------------------------------------------
-
-**For Category Microservice**
-
-http://localhost:5002/api/salons/
-http://localhost:5002/api/salons/2
-http://localhost:5002/api/salons/
-http://localhost:5002/api/salons/5
-
----------------------------------------------------------------------------------------
-{
-"name" : "Hair color",
-"image" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fpeace%2F&psig=AOvVaw1Snk69aq8KZ7QlzbwQqJa5&ust=1739460295216000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOilneC4vosDFQAAAAAdAAAAABAE"
-}
